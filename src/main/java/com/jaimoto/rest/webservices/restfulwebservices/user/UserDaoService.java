@@ -1,9 +1,12 @@
 package com.jaimoto.rest.webservices.restfulwebservices.user;
 
 
+import com.jaimoto.rest.webservices.restfulwebservices.user.vo.Post;
+import com.jaimoto.rest.webservices.restfulwebservices.user.vo.User;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -48,6 +51,14 @@ public class UserDaoService {
 			}
 		}
 		return -1;
+	}
+
+	public Post createPost(int userId, String comment){
+		User usr = findOne(userId);
+		UUID uuid = UUID.randomUUID();
+		Post post = new Post(uuid.version(),new Date(),comment,null);
+		usr.getPosts().add(post);
+		return post;
 	}
 
 

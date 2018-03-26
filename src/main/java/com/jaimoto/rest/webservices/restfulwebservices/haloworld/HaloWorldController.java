@@ -1,15 +1,19 @@
 package com.jaimoto.rest.webservices.restfulwebservices.haloworld;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Locale;
 
 //Tell spring is a controller
 @RestController
 public class HaloWorldController {
+
+	@Autowired
+	private MessageSource messageSource ;
 
 	//GET
 	//URI  - /halo
@@ -30,5 +34,24 @@ public class HaloWorldController {
 	public HaloBean haloBean(@PathVariable String name){
 		return new HaloBean( String.format("Halo world bean %s",name));
 	}
+
+	//hello-world-bean
+	@GetMapping(path = "/halo-bean-i18n/var/{name}")
+	public String haloBeanI18n(@PathVariable String name, @RequestHeader(value = "Accept-Language", required = false) Locale locale) {
+		String[] params = new String[1];
+		params[0] = name;
+		return  messageSource.getMessage("halo.message",params, locale);
+	}
+
+	//
+    //hello-world-bean
+    @GetMapping(path = "/halo-bean-i18n-2/var/{name}")
+    public String haloBeanI18n(@PathVariable String name) {
+        String[] params = new String[1];
+        params[0] = name;
+        //spring alternative from the requeste
+
+        return  messageSource.getMessage("halo.message",params, LocaleContextHolder.getLocale());
+    }
 
 }

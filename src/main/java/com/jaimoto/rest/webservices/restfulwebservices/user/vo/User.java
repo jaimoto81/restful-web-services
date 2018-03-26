@@ -7,11 +7,16 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.*;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 @ApiModel(description = "user of the app") //swagger doc
+
 public class User {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@Size(min = 2)
 	@ApiModelProperty(notes = "Name should be at leat 2 chars long")
@@ -19,6 +24,7 @@ public class User {
 	@Past
 	@ApiModelProperty(notes = "Birthdate should be on the past")
 	private Date birthDate;
+	@Transient
 	private List<Post> posts;
 
 

@@ -1,9 +1,13 @@
 package com.jaimoto.rest.webservices.restfulwebservices.user.vo;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.net.URL;
 import java.util.Date;
 
+@Entity
 public class Post {
+	@Id
 	private int id;
 	private Date timestamp;
 	private String message;

@@ -1,0 +1,2 @@
+insert into post values (100001,'My first post',null, sysdate(),4543);
+insert into post values (100002,'My second post',null, sysdate(),4543);
